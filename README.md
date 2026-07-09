@@ -74,6 +74,11 @@ Bonjour, comment allez-vous ?
 
 ---
 
+## Output:
+<img width="1498" height="933" alt="Screenshot 2026-07-09 143942" src="https://github.com/user-attachments/assets/b693b629-5be7-4534-8a81-bf870053a13d" />
+
+
+
 ## Technologies
 
 - Python 3.x
