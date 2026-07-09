@@ -1,0 +1,72 @@
+import boto3
+
+translate_client = boto3.client("translate")
+
+
+def lambda_handler(event, context):
+    try:
+        # Get user input from Lex
+        input_text = event["sessionState"]["intent"]["slots"]["text"]["value"]["interpretedValue"].strip()
+        language_slot = event["sessionState"]["intent"]["slots"]["language"]["value"]["interpretedValue"]
+
+        # Language mapping
+        language_codes = {
+            "French": "fr",
+            "Spanish": "es",
+            "German": "de",
+            "Japanese": "ja",
+            "Chinese": "zh"
+        }
+
+        if language_slot not in language_codes:
+            raise ValueError(f"Unsupported language: {language_slot}")
+
+        target_language = language_codes[language_slot]
+
+        # Translate text
+        response = translate_client.translate_text(
+            Text=input_text,
+            SourceLanguageCode="en",
+            TargetLanguageCode=target_language
+        )
+
+        translated_text = response["TranslatedText"]
+
+        return {
+            "sessionState": {
+                "dialogAction": {
+                    "type": "Close"
+                },
+                "intent": {
+                    "name": "TranslationIntent",
+                    "state": "Fulfilled"
+                }
+            },
+            "messages": [
+                {
+                    "contentType": "PlainText",
+                    "content": translated_text
+                }
+            ]
+        }
+
+    except Exception as e:
+        error_message = f"Error: {str(e)}"
+
+        return {
+            "sessionState": {
+                "dialogAction": {
+                    "type": "Close"
+                },
+                "intent": {
+                    "name": "TranslationIntent",
+                    "state": "Failed"
+                }
+            },
+            "messages": [
+                {
+                    "contentType": "PlainText",
+                    "content": error_message
+                }
+            ]
+        }
