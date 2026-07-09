@@ -17,6 +17,7 @@ The chatbot is powered by Amazon Lex and invokes an AWS Lambda function, which c
 
 ## Architecture
 
+<img width="1630" height="711" alt="521269186-af219e6b-0850-4582-b8d1-f4228d608be9" src="https://github.com/user-attachments/assets/2ac1bc50-3383-4624-8c0f-94af729e44fd" />
 
 
 ---
@@ -41,17 +42,6 @@ The chatbot is powered by Amazon Lex and invokes an AWS Lambda function, which c
   - Chinese
 - Serverless architecture
 - Automatic intent fulfillment
-
----
-
-## Project Structure
-
-```
-AWS-Translator/
-│
-├── lambda_function.py
-├── README.md
-```
 
 ---
 
